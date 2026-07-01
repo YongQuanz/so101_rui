@@ -1,0 +1,275 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Design tokens ── */
+:root {
+  /* Canvas & Containers (60% Rule) */
+  --bg:          #1b1b1b; /* Primary deep slate black canvas */
+  --surface:     #242424; /* Primary card / viewport container background */
+  --surface2:    #1b1b1b; /* Input fields, hover states, and button bases */
+  
+  /* Borders & Dividers */
+  --border:      #555555; /* High-visibility grid framing and panel dividers */
+  --border2:     rgba(255, 255, 255, 0.08); /* Subtle internal component lines */
+  
+  /* Typography (30% Rule) */
+  --text:        #FFFFFF; /* Pure white for high-contrast telemetry / real-time coordinates */
+  --text-dim:    #94A3B8; /* Slate silver-grey for static axis labels and units */
+  
+  /* Interactive Accents (10% Rule) */
+  --c-accent:    #28A745; /* Cyber Jade for active axes, jogging, and execution states */
+  --c-accent-bg: rgba(0, 229, 163, 0.10); /* Transparent green glow for active field highlights */
+  
+  /* Status Systems */
+  --c-ok:        #3ecf8e; /* System connected / clear (Unified with Cyber Jade) */
+  --c-ok-bg:     rgba(0, 229, 163, 0.08);
+  --c-warn:      #FF9F1C; /* Safety Amber for torque, speed limits, and boundary alerts */
+  --c-warn-bg:   rgba(255, 159, 28, 0.10);
+  --c-err:       #FF4B4B; /* Emergency Red for hardware faults and E-Stop triggers */
+  --c-err-bg:    rgba(255, 75, 75, 0.15); /* Slightly higher opacity for emergency alerts */
+  
+  /* Utility & Structural Values */
+  --c-muted:     #2D3C57; /* Disabled / disconnected joint track color */
+  --radius:      6px;     /* Sharper, more precise industrial UI corners */
+  --radius-sm:   4px;     
+  --sidebar-w:   280px;   /* Expanded slightly for long joint coordinate labels (e.g., "Joint 6 / Wrist") */
+  --mono:        'JetBrains Mono', 'Fira Mono', ui-monospace, monospace;
+}
+
+/* ── Layout ── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ── */
+#sidebar {
+  background: var(--surface);
+  border-right: 0.5px solid var(--border);
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid var(--border);
+}
+.brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.brand-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  background: var(--c-accent-bg);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Panels (sidebar sections) ── */
+.panel { display: flex; flex-direction: column; gap: 8px; }
+.panel-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 2px;
+}
+
+/* ── Fields ── */
+.field-label {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+input[type=text] {
+  width: 100%;
+  padding: 7px 9px;
+  background: var(--surface2);
+  color: var(--text);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-size: 11px;
+  outline: none;
+}
+input[type=text]:focus {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 2px rgba(79,142,247,0.18);
+}
+
+/* ── Buttons ── */
+.btn {
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.btn:hover  { background: #1f2433; }
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+.btn-primary { background: var(--c-accent); color: #fff; border-color: transparent; }
+.btn-primary:hover { background: #6ba3ff; }
+.btn-primary:disabled { background: var(--c-accent); }
+
+.btn-ok      { background: var(--c-ok-bg);   color: var(--c-ok);   border-color: rgba(62,207,142,0.25); }
+.btn-ok:hover { background: rgba(62,207,142,0.18); }
+
+.btn-warning { background: var(--c-warn-bg); color: var(--c-warn); border-color: rgba(245,166,35,0.25); }
+.btn-warning:hover { background: rgba(245,166,35,0.18); }
+
+.btn-ghost   { background: transparent; border-color: var(--border2); color: var(--text-dim); font-size: 12px; }
+.btn-ghost:hover { background: var(--surface2); color: var(--text); }
+
+.btn.active  { background: var(--c-accent-bg); color: var(--c-accent); border-color: rgba(79,142,247,0.35); }
+
+.full-width  { width: 100%; }
+
+.btn-connect {
+  background-color: var(--surface2); /* Dark, low-glare gray background */
+  color: var(--text-dim);            /* Muted text */
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-connect {
+  background-color: var(--surface2); 
+  color: var(--c-accent); 
+  border: 1px solid var(--c-accent);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-weight: 600; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-connect:hover {
+  background-color: var(--border);
+  color: #ffffff;
+}
+
+/* ── Status row ── */
+.status-row  { display: flex; align-items: center; gap: 7px; }
+.dot         { width: 7px; height: 7px; border-radius: 50%; background: var(--c-muted); flex-shrink: 0; transition: background 0.3s; }
+.dot.ok      { background: var(--c-ok); }
+.dot.warn    { background: var(--c-warn); }
+.dot.err     { background: var(--c-err); }
+.status-text { font-size: 11px; color: var(--text-dim); }
+
+/* ── Motor grid ── */
+.motor-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+/* ── Gripper slider ── */
+.slider-row  { display: flex; align-items: center; gap: 8px; }
+.slider-label { font-size: 11px; color: var(--text-dim); min-width: 26px; }
+.slider-val   { font-family: var(--mono); font-size: 11px; color: var(--text); min-width: 32px; text-align: right; }
+input[type=range] {
+  flex: 1; accent-color: var(--c-accent);
+  height: 3px; cursor: pointer;
+}
+.feedback-row { display: flex; justify-content: space-between; align-items: center; }
+.fb-label     { font-size: 10px; color: var(--text-dim); }
+.fb-val       { font-family: var(--mono); font-size: 11px; color: var(--c-ok); }
+
+/* ── Main area ── */
+#main {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 720px;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid var(--border);
+}
+.main-title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* ── Joint rows ── */
+#joints-container { display: flex; flex-direction: column; gap: 6px; }
+
+.joint-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  display: grid;
+  grid-template-columns: 120px 1fr 64px 64px;
+  align-items: center;
+  gap: 12px;
+  transition: border-color 0.15s;
+}
+.joint-card:focus-within { border-color: var(--border2); }
+
+.joint-name   { font-size: 12px; color: var(--text-dim); font-weight: 500; }
+.joint-cmd    { font-family: var(--mono); font-size: 11px; color: var(--text);    text-align: right; }
+.joint-actual { font-family: var(--mono); font-size: 11px; color: var(--c-ok);   text-align: right; }
+
+/* ── Log ── */
+.log-section { display: flex; flex-direction: column; gap: 6px; }
+.log-box {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  height: 200px;
+  overflow-y: auto;
+  line-height: 1.8;
+}
+.log-ok   { color: var(--c-ok); }
+.log-warn { color: var(--c-warn); }
+.log-err  { color: var(--c-err); }
+.log-info { color: var(--text-dim); }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  body { grid-template-columns: 1fr; }
+  #sidebar { position: static; height: auto; }
+  .joint-card { grid-template-columns: 100px 1fr 56px; }
+  .joint-actual { display: none; }
+}
