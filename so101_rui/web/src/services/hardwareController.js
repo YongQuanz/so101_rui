@@ -1,13 +1,33 @@
 import { CONFIG } from "../config.js";
+import { element } from "../utils/dom.js";
 
 // ── Hardware controller ───────────────────────────────────────────────────────
 // Enables/disables torque and keeps the motor UI + hardware state in sync.
 export class HardwareController {
-  constructor(ros, logger, motorUI, onEnabled) {
+  constructor(ros, logger, motorUI, connStatus, onEnabled) {
     this.ros = ros;
     this.logger = logger;
     this.motorUI = motorUI;
+    this.connStatus= connStatus;
     this.onEnabled = onEnabled; // callback fired right after torque is enabled
+  }
+
+  toggleConnect() {
+    this.ros.connected ? this.disconnect() : this.connect();
+  }
+
+  connect() {
+    const url = element("ws-url").value.trim();
+    this.connStatus.set("", "connecting...");
+    try {
+      this.ros.connect(url);
+    } catch (_) {
+      this.connStatus.set("err", "error");
+    }
+  }
+
+  disconnect() {
+    this.ros.disconnect();
   }
 
   async syncState() {
