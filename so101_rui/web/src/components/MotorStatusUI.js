@@ -1,6 +1,6 @@
 import { element } from "../utils/dom";
 
-// ── Motor status UI (state machine) ───────────────────────────────────────────
+// ── Motor status UI ───────────────────────────────────────────
 export class MotorStatusUI {
   static STATES = {
     disconnected: { dotClass: '',     labelText: '—',        en: false, dis: false },
