@@ -15,6 +15,6 @@
 
 ## 📱 Current User Interface
 
-![SO-101 User Interface Screenshot](so101_rui/web/src/assets/dashboard.png))
+![SO-101 User Interface Screenshot](so101_rui/web/src/assets/dashboard.png)
 
 ---
