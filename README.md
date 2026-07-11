@@ -33,6 +33,9 @@ Create or navigate to your ROS 2 workspace `src` folder, then clone both the har
 # Navigate to your workspace src folder (adjust path if your workspace name is different)
 cd ~/ros2_ws/src
 
+# Clone the so101_msgs package (custom interface to display servo_telemetry data)
+git clone https://github.com/YongQuanz/so101_msgs.git
+
 # Clone the Hardware Interface
 git clone https://github.com/YongQuanz/so101_hardware_interface.git
 
