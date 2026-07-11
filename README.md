@@ -28,10 +28,10 @@ Create or navigate to your ROS 2 workspace `src` folder, then clone both the har
 cd ~/ros2_ws/src
 
 # Clone the Hardware Interface
-git clone [https://github.com/YongQuanz/so101_hardware_interface.git](https://github.com/YongQuanz/so101_hardware_interface.git)
+git clone https://github.com/YongQuanz/so101_hardware_interface.git
 
 # Clone the Robot User Interface (RUI)
-git clone [https://github.com/YongQuanz/so101_rui.git](https://github.com/YongQuanz/so101_rui.git)
+git clone https://github.com/YongQuanz/so101_rui.git
 ```
 
 ### 3. Install Dependencies with rosdep and build
