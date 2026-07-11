@@ -16,7 +16,7 @@
 ## 📱 Current User Interface
 > High-level overview of the dashboard displaying real-time motor telemetry updates and joint controls.
 
-![SO-101 User Interface Screenshot](web/public/dashboard.png)
+![SO-101 User Interface Screenshot](so101_rui/web/public/dashboard.png)
 
 ---
 
