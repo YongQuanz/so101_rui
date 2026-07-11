@@ -7,6 +7,7 @@ import { MotorStatusUI } from "./components/MotorStatusUI.js";
 import { HardwareController } from "./services/hardwareController.js";
 import { JointTeleopPanel } from "./components/JointTeleopPanel.js";
 import { setupUIEventListeners } from "./utils/dom.js";
+import { MotorFeedbackPanel } from "./components/FeedbackStatusUI.js";
 
 class Main {
   constructor() {
@@ -26,6 +27,11 @@ class Main {
       this.connStatus,
       () => this.joints.publish(),
     );
+    this.MotorFeedback = new MotorFeedbackPanel(
+      "motor-feedback-container",
+      this.ros,
+      this.logger,
+    );
 
     this.connStatus.set("err", "disconnected"); // Set initial state to disconnected
 
@@ -36,6 +42,7 @@ class Main {
       this.logger.log("Topics advertised & subscribed.", "ok");
       this.joints.advertiseTrajectoryTopic();
       this.joints.subscribeToJointStates();
+      this.MotorFeedback.subscribe();
       this.hardware.syncState();
     };
 
@@ -45,12 +52,14 @@ class Main {
       element("btn-connect").className = "btn btn-primary full-width";
       this.motoUI.set("disconnected");
       this.joints.resetSyncFlag();
+      this.MotorFeedback.reset();
     };
   }
 
   init() {
     element("ws-url").value = CONFIG.rosbridgeUrl;
     this.joints.build(this);
+    this.MotorFeedback.build();
     this.logger.log("SO-101 RUI ready -> connect to rosbridge to start.");
   }
 }
