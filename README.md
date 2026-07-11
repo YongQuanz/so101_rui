@@ -12,3 +12,9 @@
 *   [ ] Playback: recorded coordinates for repeatability 
 
 ---
+
+## 📱 Current User Interface
+
+![SO-101 User Interface Screenshot](web/src/assets/dashboard.png))
+
+---
