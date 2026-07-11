@@ -1,7 +1,10 @@
 # SO-101 Robot User Interface (RUI) 🤖
 
 ⚠️ **Status: Work In Progress**  
-*This repository is under development.*
+Current features: 
+  - Teleoperation
+  - Enable/Disable motor's
+  - Servo telemetry data
 
 ---
 
