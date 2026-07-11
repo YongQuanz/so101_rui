@@ -13,13 +13,6 @@
 
 ---
 
-## 📱 Current User Interface
-> High-level overview of the dashboard displaying real-time motor telemetry updates and joint controls.
-
-![SO-101 User Interface Screenshot](so101_rui/web/public/dashboard.png)
-
----
-
 ## 🚀 Getting Started & Setup
 
 Follow these steps to set up your ROS 2 workspace, resolve dependencies using `rosdep`, and launch the User Interface.
@@ -65,3 +58,10 @@ ros2 launch so101_hardware_interface so101_bringup.launch.py
 source install/setup.bash
 ros2 launch so101_rui rui.launch.py
 ```
+
+## 📱 Current User Interface
+> High-level overview of the dashboard displaying real-time motor telemetry updates and joint controls.
+
+![SO-101 User Interface Screenshot](so101_rui/web/src/assets/dashboard.png)
+
+---
