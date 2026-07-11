@@ -1,0 +1,86 @@
+/* Container turning into a 3-column layout grid */
+.motor-feedback-body {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Individual Motor Card frame architecture */
+.motor-card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Header Banner containing Motor title and status dot */
+.motor-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #242424;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #333;
+}
+
+.motor-card-header h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.motor-status-dot {
+  font-size: 0.8rem;
+}
+
+/* Internal body padding spacing for metrics lists */
+.motor-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+}
+
+/* Reusing your existing row styling layout specs */
+.feedback-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  font-size: 0.9rem;
+}
+
+.feedback-row:last-child {
+  border-bottom: none;
+}
+
+.feedback-row span {
+  color: #aaa;
+}
+
+.feedback-empty {
+  padding: 1rem;
+  opacity: 0.6;
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
+
+.status-ok  { color: #2ecc71; }
+.status-err { color: #e74c3c; }
+
+/* Responsive break points: handle narrower screen dimensions smoothly */
+@media (max-width: 900px) {
+  .motor-feedback-body {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .motor-feedback-body {
+    grid-template-columns: 1fr;
+  }
+}
