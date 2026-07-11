@@ -20,6 +20,9 @@ Follow these steps to set up your ROS 2 workspace, resolve dependencies using `r
 ### 1. Prerequisites
 Ensure you have a working ROS 2 installation (e.g., Humble, Iron, or Jazzy) and a sourced environment. (I used Jazzy)
 
+**Hardware Prep:** 
+The SO-101 arm servos must be **calibrated** and **configured with their correct IDs (1 - 6)** before attempting to communicate with the driver.
+
 ### 2. Clone the Repositories
 Create or navigate to your ROS 2 workspace `src` folder, then clone both the hardware interface and the RUI repositories:
 
