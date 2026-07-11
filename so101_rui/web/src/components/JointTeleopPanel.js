@@ -129,7 +129,7 @@ export class JointTeleopPanel {
     CONFIG.joints.forEach((joint, i) => {
       const idx = names.indexOf(joint.ros_name);
       if (idx === -1) return;
-      const act = el("act-" + i);
+      const act = element("act-" + i);
       if (act) act.textContent = positions[idx].toFixed(2) + " rad";
     });
   }
