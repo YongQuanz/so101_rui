@@ -36,6 +36,9 @@ cd ~/ros2_ws/src
 # Clone the so101_msgs package (custom interface to display servo_telemetry data)
 git clone https://github.com/YongQuanz/so101_msgs.git
 
+# Clone the so101_description package
+https://github.com/YongQuanz/so101_description.git
+
 # Clone the Hardware Interface
 git clone https://github.com/YongQuanz/so101_hardware_interface.git
 
