@@ -4,7 +4,7 @@
   <name>so101_rui</name>
   <version>0.1.0</version>
   <description>Robot User Interface for the SO-101 arm — teleoperation, motor connect/enable/disable</description>
-  <maintainer email="you@example.com">you</maintainer>
+  <maintainer email="rowbotworks@gmail.com">Yong</maintainer>
   <license>Apache-2.0</license>
 
   <depend>rclpy</depend>
