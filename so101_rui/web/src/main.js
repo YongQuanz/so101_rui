@@ -8,6 +8,7 @@ import { HardwareController } from "./services/hardwareController.js";
 import { JointTeleopPanel } from "./components/JointTeleopPanel.js";
 import { setupUIEventListeners } from "./utils/dom.js";
 import { MotorFeedbackPanel } from "./components/FeedbackStatusUI.js";
+import { TrajectoryPanel } from "./components/TrajectoryPanel.js";
 
 class Main {
   constructor() {
@@ -32,6 +33,12 @@ class Main {
       this.ros,
       this.logger,
     );
+    this.trajectory = new TrajectoryPanel(
+      this.ros,
+      this.logger,
+      this.hardware,
+      this.joints,
+    );
 
     this.connStatus.set("err", "disconnected"); // Set initial state to disconnected
 
@@ -44,6 +51,7 @@ class Main {
       this.joints.subscribeToJointStates();
       this.MotorFeedback.subscribe();
       this.hardware.syncState();
+      element("btn-record").disabled = false;
     };
 
     this.ros.onClose = () => {
@@ -52,7 +60,12 @@ class Main {
       element("btn-connect").className = "btn btn-primary full-width";
       this.motoUI.set("disconnected");
       this.joints.resetSyncFlag();
+      this.joints.setInputsDisabled(false);
       this.MotorFeedback.reset();
+      if (this.trajectory.recording) this.trajectory.stopRecording();
+      element("btn-record").disabled = true;
+      element("btn-play").disabled = true;
+      element("btn-record").textContent = "Record";
     };
   }
 

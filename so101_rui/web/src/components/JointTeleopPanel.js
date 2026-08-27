@@ -10,6 +10,7 @@ export class JointTeleopPanel {
     this.cmdValues = new Array(CONFIG.joints.length).fill(0.0);
     this.debounce = null;
     this.jointsSynced = false; // true after sliders are seeded from /joint_states
+    this.lastJointState = null; // most recent raw /joint_states message
   }
 
   build(app) {
@@ -99,11 +100,44 @@ export class JointTeleopPanel {
     this.logger.log("All joints zeroed.");
   }
 
+  // Disables/enables all sliders. Used while a recording or a recorded
+  // trajectory is playing back, so manual teleop input can't fight either.
+  setInputsDisabled(disabled) {
+    CONFIG.joints.forEach((_, i) => {
+      const slider = element("sl-" + i);
+      if (slider) slider.disabled = disabled;
+    });
+  }
+
+  // Pulls cmdValues + sliders to match the arm's current actual position.
+  // Used on first connect, and again before re-enabling torque (either via
+  // the Enable button or trajectory playback) so the hold-position publish
+  // doesn't snap the arm to stale slider values.
+  syncToCurrentPosition() {
+    const msg = this.lastJointState;
+    if (!msg) return;
+    const names = msg.name || [];
+    const positions = msg.position || [];
+    CONFIG.joints.forEach((joint, i) => {
+      const idx = names.indexOf(joint.ros_name);
+      if (idx === -1) return;
+      const rad = positions[idx];
+      const deg = Math.round((rad * 180) / Math.PI);
+      this.cmdValues[i] = rad;
+      const slider = element("sl-" + i);
+      const cmd = element("cmd-" + i);
+      if (slider) slider.value = deg;
+      if (cmd) cmd.textContent = rad.toFixed(2) + " rad";
+    });
+  }
+
   resetSyncFlag() {
     this.jointsSynced = false;
   }
 
   _handleJointState(msg) {
+    this.lastJointState = msg;
+
     const names = msg.name || [];
     const positions = msg.position || [];
 
@@ -111,17 +145,7 @@ export class JointTeleopPanel {
     // when you first move a slider after connecting.
     if (!this.jointsSynced) {
       this.jointsSynced = true;
-      CONFIG.joints.forEach((joint, i) => {
-        const idx = names.indexOf(joint.ros_name);
-        if (idx === -1) return;
-        const rad = positions[idx];
-        const deg = Math.round((rad * 180) / Math.PI);
-        this.cmdValues[i] = rad;
-        const slider = element("sl-" + i);
-        const cmd = element("cmd-" + i);
-        if (slider) slider.value = deg;
-        if (cmd) cmd.textContent = rad.toFixed(2) + " rad";
-      });
+      this.syncToCurrentPosition();
       this.logger.log("Sliders synced to current joint positions.", "ok");
     }
 

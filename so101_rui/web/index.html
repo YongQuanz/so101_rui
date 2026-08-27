@@ -53,6 +53,29 @@
           <span class="status-text" id="motor-label">—</span>
         </div>
       </section>
+
+      <!-- Trajectory panel -->
+      <section class="panel" id="panel-trajectory">
+        <h2 class="panel-title">Trajectory</h2>
+
+        <div class="motor-grid">
+          <button id="btn-record" class="btn btn-warning" disabled>
+            Record
+          </button>
+          <button id="btn-play" class="btn btn-primary" disabled>
+            Play
+          </button>
+        </div>
+
+        <div class="status-row" style="margin-top: 10px">
+          <span
+            class="dot"
+            id="traj-dot"
+            style="background: var(--c-muted)"
+          ></span>
+          <span class="status-text" id="traj-label">no recording</span>
+        </div>
+      </section>
     </aside>
 
     <!-- ── Main: Teleoperation ── -->
