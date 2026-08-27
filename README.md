@@ -5,6 +5,7 @@ Current features:
   - Teleoperation
   - Enable/Disable motor's
   - Servo telemetry data
+  - Record & playback (works but unsafe)
 
 ---
 
