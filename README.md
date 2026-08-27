@@ -8,8 +8,9 @@
 ## 🏗️ Current Development Focus
 *   [X] Display telemetry data (Motor Feedback's)
 *   [X] Teleoperation using slider's
-*   [ ] Joint recording: arm to specific pose -> sample joint values -> save coordinates sequence.
-*   [ ] Playback: recorded coordinates for repeatability 
+*   [X] Joint recording: arm to specific pose -> sample joint values -> save coordinates sequence.
+*   [X] Playback: recorded coordinates for repeatability 
+*   [ ] Fix playback feature, as it snaps to the first pose of recorded joints ⚠️
 
 ---
 
